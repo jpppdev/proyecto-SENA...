@@ -131,6 +131,11 @@ export default function Navbar(){
               Agregar Menú
             </Link>
           </DropdownItem>
+          <DropdownItem>
+            <Link to="/dashboard/orderCreate" className="block w-full">
+              Crear Orden
+            </Link>
+          </DropdownItem>
             
           <DropdownItem>
             Cerrar Sesión
