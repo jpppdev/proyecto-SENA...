@@ -1,0 +1,1 @@
+export { default as ProviderRegisterForm } from "./components/ProviderRegisterForm"

@@ -1,0 +1,1 @@
+export {default as InventoryCreateForm} from "./components/InventoryCreateForm"
