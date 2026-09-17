@@ -6,6 +6,7 @@ import  Login  from "@/features/auth/Login";
 import HomePage from "@/features/home/page/HomePage";
 import { InventoryCreateForm } from "../features/inventory";
 import { ProviderRegisterForm } from "../features/provider";
+import { MenuCreateForm } from "../features/menu";
 
 const  router = createBrowserRouter([
     {
@@ -43,6 +44,7 @@ const  router = createBrowserRouter([
             { path: "userCreate", element: <UserRegisterForm />},
             { path: "inventoryCreate", element: <InventoryCreateForm />},
             { path: "providerCreate", element: <ProviderRegisterForm />},
+            { path: "addmenu", element: <MenuCreateForm />},
             { path: "Home", element: <HomePage />},
         ],
     },

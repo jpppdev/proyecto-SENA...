@@ -1,6 +1,7 @@
 // src/features/providers/schemas/providerSchema.js
 
 import { z } from "zod";
+import { fileSchema } from "@/shared/schemas/fileSchema";
 
 export const providerSchema = z.object({
     

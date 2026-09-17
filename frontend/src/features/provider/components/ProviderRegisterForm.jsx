@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { providerSchema } from "../schemas/ProviderSchema";
+import { providerSchema } from "../schemas/providerSchemas";
 import { Input, Button, Select, FileInput } from "@/shared";
 import { Store, ArrowLeft, Check, Truck } from "lucide-react";
 

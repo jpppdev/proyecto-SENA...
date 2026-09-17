@@ -126,6 +126,11 @@ export default function Navbar(){
               Crear Proveedor
             </Link>
           </DropdownItem>
+          <DropdownItem>
+            <Link to="/dashboard/addmenu" className="block w-full">
+              Agregar Menú
+            </Link>
+          </DropdownItem>
             
           <DropdownItem>
             Cerrar Sesión
