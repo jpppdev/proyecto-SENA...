@@ -41,13 +41,48 @@ export default function UserViewPage() {
             </div>
 
             <div>
+              <p className="text-gray-500">Confirmación de Correo</p>
+              <p>{user.userEmailConfirmation}</p>
+            </div>
+
+            <div>
+              <p className="text-gray-500">Correo Empresarial</p>
+              <p>{user.userBusinesEmail}</p>
+            </div>
+
+            <div>
+              <p className="text-gray-500">Confirmación Correo Empresarial</p>
+              <p>{user.userBusinesEmailConfirmation}</p>
+            </div>
+
+            <div>
               <p className="text-gray-500">Teléfono</p>
               <p>{user.userPhone}</p>
+            </div>
+
+            <div>   
+              <p className="text-gray-500">Segundo número de contacto</p> 
+              <p>{user.userSecondPhone}</p> 
+            </div>
+
+            <div>   
+              <p className="text-gray-500">Dirección</p> 
+              <p>{user.userAddres}</p> 
             </div>
 
             <div>
               <p className="text-gray-500">Documento</p>
               <p>{user.userDocumentNumber}</p>
+            </div>
+
+            <div>
+              <p className="text-gray-500">Foto</p>
+
+                <img
+                  src={user.userImage}
+                  alt="Foto del usuario"
+                  // className="w-32 h-32 object-cover rounded-full"
+                />
             </div>
 
             <div>
@@ -58,6 +93,16 @@ export default function UserViewPage() {
             <div>
               <p className="text-gray-500">Rol</p>
               <p>{user.isSuperUser ? "Administrador" : "Usuario"}</p>
+            </div>
+
+            <div> 
+              <p className="text-gray-500">Fecha de inicio laboral</p> 
+              <p>{user.workStartDate}</p> 
+            </div> 
+            
+            <div> 
+              <p className="text-gray-500">Fecha fin laboral</p> 
+              <p>{user.workEndDate}</p> 
             </div>
 
           </div>
