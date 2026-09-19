@@ -1,0 +1,1 @@
+export { default as ViewSuppliers } from "./components/ViewSuppliers";
