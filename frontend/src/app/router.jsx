@@ -3,7 +3,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AuthLayout, DashboardLayout, } from "@/shared";
 import { UserListPage, UserRegisterForm } from "@/features/users";
 import  Login  from "@/features/auth/Login";
-import HomePage from "@/features/home/page/HomePage";
+import { HomePage } from "../features/home";
 import { InventoryCreateForm } from "../features/inventory";
 import { ProviderRegisterForm } from "../features/provider";
 import { MenuCreateForm } from "../features/menu";
@@ -28,10 +28,11 @@ const  router = createBrowserRouter([
 
     {
         path: "/Home",
-        element: <AuthLayout/>,
+        element: <DashboardLayout/>,
         children:[
             {
                 index: true,
+                 element: <HomePage/>,
             },
         ],
     },
