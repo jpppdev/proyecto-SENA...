@@ -29,7 +29,7 @@ export default function Navbar(){
   };
 
   return (
-    <nav className="w-full bg-white/30  backdrop-blur-md">
+    <nav className="w-full bg-white/30  backdrop-blur-md relative z-50">
       
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-16 items-center justify-between">
@@ -55,15 +55,11 @@ export default function Navbar(){
                 to={"/dashboard"}
                 className="hover:text-primary transition"
               >
-                Cursos
+                Platillos
               </Link>
             </li>
 
-            <li>
-              <Link to={"/inicio"} className="hover:text-primary transition">
-                Multimedia
-              </Link>
-            </li>
+           
 
             <li>
               <Link to={"/inicio"} className="hover:text-primary transition">
@@ -89,7 +85,7 @@ export default function Navbar(){
 
         {/* Dropdown */}
         <div>
-      <Dropdown className="z-15">
+      <Dropdown className="z-50">
           {/* Disparador */}
           <DropdownTrigger>
             <IconButton>
@@ -100,46 +96,39 @@ export default function Navbar(){
           {/* Contenido */}
         <DropdownContent>
           <DropdownItem>
-            <Link to="/dashboard/Home" className="block w-full">
-            Gestion de Productos
+            <Link to="/dashboard/userList" className="block w-full">
+            Módulo usuario
             </Link>
           </DropdownItem>
           
           <DropdownItem>
-            <Link to="/dashboard/userCreate" className="block w-full">
-              Crear Usuarios
+            <Link to="/dashboard/inventoryList" className="block w-full">
+              Módulo inventario
             </Link>
           </DropdownItem>
 
           <DropdownItem>
-            <Link to="/dashboard/userList" className="block w-full">
-              Listar usuarios
+            <Link to="/dashboard/providerList" className="block w-full">
+              Módulo proveedor
             </Link>
           </DropdownItem>
           <DropdownItem>
-            <Link to="/dashboard/inventoryCreate" className="block w-full">
-              Crear inventario
+            <Link to="/dashboard/menuList" className="block w-full">
+              Módulo menu
             </Link>
           </DropdownItem>
           <DropdownItem>
-            <Link to="/dashboard/ProviderCreate" className="block w-full">
-              Crear Proveedor
+            <Link to="/dashboard/orderList" className="block w-full">
+              Módulo orden
             </Link>
           </DropdownItem>
+
           <DropdownItem>
-            <Link to="/dashboard/addmenu" className="block w-full">
-              Agregar Menú
+            <Link to="/dashboard/orderList" className="block w-full">
+              cerrar sesión
             </Link>
           </DropdownItem>
-          <DropdownItem>
-            <Link to="/dashboard/orderCreate" className="block w-full">
-              Crear Orden
-            </Link>
-          </DropdownItem>
-            
-          <DropdownItem>
-            Cerrar Sesión
-          </DropdownItem>
+          
         </DropdownContent>
 
       </Dropdown>

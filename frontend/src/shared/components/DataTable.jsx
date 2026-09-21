@@ -79,13 +79,15 @@ export default function DataTable({ data, columns }) {
 
   return (
     // <div className="space-y-4 bg-[var(--color-background-div)] ">
+
+    // cuadro total de toda la tabla
     <div className=" 
     
     rounded-3xl
     overflow-hidden
     shadow-sm
     p-4
-    bg-[#E8D6C3]">
+    bg-[#ECD5B9]">
 
 
       {/* ================== TOOLBAR ================== */}
@@ -128,12 +130,13 @@ export default function DataTable({ data, columns }) {
 
 
       {/* ================== TABLA ================== */}
-      <div className="overflow-x-auto border rounded">
+      <div className="overflow-x-auto border border-[#D2B697] rounded">
+
         <table className="w-full border-collapse ">
 
 
           {/* ================== CABECERA ================== */}
-          <thead className="bg-[#CCB59C] ">
+          <thead className=" bg-[#E0CBB1] text-[#5D2505]">
 
 
             {/* TanStack agrupa cabeceras automáticamente */}
@@ -148,7 +151,7 @@ export default function DataTable({ data, columns }) {
 
                   <th
                     key={header.id}
-                    className="p-3 text-left  border-y border-[#D8C0A5] "
+                    className="p-3 text-left  border-y border-[#D8C0A5]  "
                   >
 
 
@@ -184,14 +187,14 @@ export default function DataTable({ data, columns }) {
             {table.getRowModel().rows.map(row => (
 
 
-              <tr key={row.id} className="hover:bg-gray-50">
+              <tr key={row.id} className="hover:bg-gray-50 bg-[#F1E0C9] border-[#D2B697]">
 
 
                 {/* Celdas visibles de cada fila */}
                 {row.getVisibleCells().map(cell => (
 
 
-                  <td key={cell.id} className="p-3 border-b">
+                  <td key={cell.id} className="p-3 border-b border-[#D2B697] text-[#5D2505]">
 
 
                     {/* Render dinámico del contenido de la celda */}

@@ -1,37 +1,37 @@
-﻿// src/users/pagesUserListPage.js
+// src/users/pagesUserListPage.js
 
 import { useState } from "react";
 import { DataTable, Button } from "@/shared";
-import { UserColumns } from "../table/UserColumns";
-import { users } from "../data/users";
+import { InventoryColumns } from "../table/InventoryColumns";
+import { inventory } from "../data/inventory";
 import { Link } from "react-router-dom";
-import ReportConfigModal from "../reports/components/ReportConfigModal";
+import ReportConfigModal from "@/features/users/reports/components/ReportConfigModal";
 
-export default function UserListPage() {
+export default function InventoryListPage() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   return (
     <div className="p-6">
       
-      <h1 className="text-[length:var(--text-main)] font-semibold mb-4 text-[color:var(--color-text-primary)] ">Listado de Usuarios</h1>
+      <h1 className="text-[length:var(--text-main)] font-semibold mb-4 text-[color:var(--color-text-primary)] ">Listado de Inventario</h1>
 
       
       <div className="flex justify-end items-center gap-4 pb-10">
 
         {/* botón de reportar usuario */}
         <Button onClick={() => setIsReportModalOpen(true)}>
-          Reportar usuario
+          Reportar producto
         </Button>
 
 
         {/* botón de reportar crear usuario */}
-        <Link to="/dashboard/userCreate" className="text-h1 font-heading">
-          <Button>Crear usuario</Button>
+        <Link to="/dashboard/inventoryCreate" className="text-h1 font-heading">
+          <Button>Crear producto</Button>
         </Link>
 
       </div>
 
-      <DataTable data={users} columns={UserColumns} />
+      <DataTable data={inventory} columns={InventoryColumns} />
 
       <ReportConfigModal
         isOpen={isReportModalOpen}
