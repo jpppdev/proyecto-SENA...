@@ -11,6 +11,7 @@ export default function Button ({
 
     const variants = {
         primary : "bg-[var(--semantic-brand)] text-[color:var(--text-inverse)] hover:bg-[var(--color-brand-hover)]",
+        
         secondary : "border border-[var(--color-border-clear)] bg-[var(--semantic-brand)] text-[color:var(--text-inverse)] hover:bg-[var(--color-brand-hover)] "
         
     };

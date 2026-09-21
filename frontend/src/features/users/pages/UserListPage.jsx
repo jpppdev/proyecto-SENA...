@@ -13,8 +13,8 @@ export default function UserListPage() {
   return (
     <div className="p-6">
       
-      <h1 className="text-[length:var(--text-main)] font-semibold mb-4 text-[color:var(--color-text-primary)] ">Listado de Usuarios</h1>
-
+      <h1 className="text-[color:var(--color-text-primary)] text-[length:var(--text-main)] font-semibold mb-4  ">Listado de Usuarios</h1>
+      {/* color de texto,  */}
       
       <div className="flex justify-end items-center gap-4 pb-10">
 
