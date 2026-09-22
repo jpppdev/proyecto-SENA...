@@ -52,7 +52,7 @@ export default function Navbar(){
 
             <li>
               <Link
-                to={"/dashboard"}
+                to={"/dashboard/Dishes"}
                 className="hover:text-primary transition"
               >
                 Platillos
