@@ -1,0 +1,74 @@
+Listado de rutas de carpetas para el volumen Acer
+El número de serie del volumen es 0000005B 4E2D:08AF
+C:.
+│   estructura.txt
+│   main.jsx
+│   
+├───app
+│       App.jsx
+│       router.jsx
+│       
+├───assets
+│   └───images
+│           bg-1.png
+│           bg-2.jpg
+│           bg-3.jpg
+│           
+├───data
+│   └───selects
+│           documentsTypes.json
+│           documentTypes.json
+│           
+├───features
+│   ├───auth
+│   ├───groups
+│   ├───home
+│   ├───permissions
+│   ├───products
+│   └───users
+│       │   index.js
+│       │   
+│       ├───components
+│       │       UserRegisterForm.jsx
+│       │       
+│       ├───hooks
+│       ├───pages
+│       └───schemas
+│               userSchema.js
+│               
+├───services
+│       selectService.js
+│       
+├───shared
+│   │   index.js
+│   │   
+│   ├───components
+│   │       Button.jsx
+│   │       Card.jsx
+│   │       Checkbox.jsx
+│   │       CounterEffect.jsx
+│   │       DataTable.jsx
+│   │       DeleteCounter.jsx
+│   │       DeleteCounter2.jsx
+│   │       Dropdown.jsx
+│   │       EffectDemo.jsx
+│   │       FileInput.jsx
+│   │       IconButton.jsx
+│   │       Input.jsx
+│   │       SearchField.jsx
+│   │       Select.jsx
+│   │       Switch.jsx
+│   │       
+│   └───layouts
+│           AuthLayout.jsx
+│           CallToActionLayout.jsx
+│           DashboardLayout.jsx
+│           Footer.jsx
+│           MainLayout.jsx
+│           Navbar.jsx
+│           
+└───styles
+        global.css
+        semantic.css
+        tokens.css
+        

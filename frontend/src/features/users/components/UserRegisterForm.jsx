@@ -1,0 +1,286 @@
+// UserRegisterForm componente para registrar un usuario
+
+import { useState, useEffect } from "react";
+import {    Input, 
+            Button, 
+            // DeleteCounter2,
+            Select, 
+            // IconButton,
+            // Dropdown,
+            // DropdownTrigger,
+            // DropdownItem,
+            // DropdownContent,
+            FileInput
+    } from "@/shared";
+import { getDocumentTypes } from "@/services/selectService";
+import { useNavigate} from "react-router-dom";
+import {userSchema} from "../schemas/userSchema";
+import { UserPlus, ArrowLeft, Check, User } from "lucide-react";
+
+
+
+
+export default function UserRegisterForm (){
+
+        //Estado
+        const [isSubmitting, setIsSubmitting] = useState(false);
+        const [isSuccess, setIsSuccess] = useState(false);
+        //Navegacion
+        const navigate = useNavigate();
+
+        //Estado del error
+         const [errors, setErrors] = useState({})
+
+        // Estado del formulario 
+        const [formData, setFormData] =  useState({
+            userName: "",
+            userEmail: "",
+            userPhone: "",
+            userDocumentTypes: "",
+            userDocumentNumber: "",
+            userPassword: "",
+            userImage: [],
+
+            //Flags booleanos
+            isStaff: false,
+            isActive: true,
+            isSuperUser: false,
+        });
+
+
+        //Estado para los tipos de documento
+        const [documentTypes, setDocumentTypes] = useState([]);
+    
+        // Uso del estado useEffect 
+        useEffect(() => {
+            getDocumentTypes().then(setDocumentTypes);
+        },[])
+
+        //========================================
+        //          Handle Generico
+        //========================================
+        /**
+         * Función que se ejecuta cada vez que cambia el valor de un input del formulario
+         */
+        const handleChange = (e) => {
+            // Se obtiene el nombre del campo y su valor
+            const { name, value, type, checked } = e.target;
+
+        setFormData((prev) => ({
+            // Se copian todos los valores anteriores del estado
+            ...prev,
+
+            // Se actualiza unicamente lo que cambio
+            [name]: type === "checkbox" ? checked : value,
+        }));
+    };
+
+ 
+
+    //===================== HANDLE SUBMIT =============================
+    const handleSubmit = async(e) => {
+        //Evita que el formulario recargue la pagina
+        e.preventDefault();
+
+        //Validamos los datos del formulario contra el esquema Zod
+        //saFeParse NO lanza exceptcion, retorna un objeto controlado
+        const result = userSchema.safeParse(formData);
+
+        //Verificar en consola si el esquema está funcionado correctamente 
+        // console.log(result);
+
+        //Si la validacion falla
+        if(!result.success){
+            //Objeto donde almacenaremos los errores por campo
+            const fieldErrors = {};
+
+            // Recorremos cada error generado por Zod
+            result.error.issues.forEach((issue) => {
+                //issue.path[0] corresponde al nombre del campo
+                // issue.message contiene el mensaje de error definido en el schema
+                fieldErrors[issue.path[0]] = issue.message;
+            });
+
+            // Actualizamos el estado de errores para mostrarlos en el UI 
+            setErrors(fieldErrors);
+
+            // Cortamos la ejecución: NO se envia nada al backend
+
+            return;
+        }
+        // Si la validacion pasa, limpiamos errores previos
+        setErrors({});
+
+        //Activamos eestado de envio (util para desahibilitar el boton)
+        setIsSubmitting(true);
+
+        try {
+            //llamamos al servivio frontend que soncume la API 
+            //result.data contiene los datos ya validamos por Zod
+            // const responde = await createUser(result.data); linea comentada es un servicio 
+
+            //Log informativo para desarrolllo
+            // console("Usuario Creado:", responde); igual
+
+            //Feedback basico al usuario 
+            alert("Usuario creado correctamente");
+
+            //Navegamos a la vista anterior
+            // navigate (-1) equivale a "volver atras"
+            navigate(-1);
+        } catch (error){
+            //Caoturamos errores de red o errores lanzados por el service
+            console.error("Error:" , error.message);
+
+            //Mstramos el mensaje de error al usuario 
+            alert(error.message);
+        } finally {
+            //Pase lo que pase, desactivamos el esrado de envio 
+            // setIsSubmitting(false);
+        }
+    };
+
+    //========================================
+    //          Handle NameChange
+    //========================================
+
+    // const handleNameChange = (e) => {
+    //     const value = e.target.value.trim();
+
+    //     if (value === "") {
+    //         console.log("El nombre no puede estar vacio");
+    //     }
+    // };
+
+return (
+    <div className="relative w-full max-w-[1024px] min-h-[600px] mx-auto mt-12 bg-white/30 rounded-[2.5rem] shadow-md overflow-hidden border border-[var(--color-border-strong)] p-8 md:p-10">
+      
+      {/* --- CAPA DE ÉXITO (OVERLAY) --- */}
+      {isSuccess && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/40 backdrop-blur-md transition-all duration-300">
+          <div className="w-32 h-32 bg-[var(--color-secondary-200)] rounded-[2rem] rotate-3 flex items-center justify-center mb-6 shadow-xl relative">
+            <UserPlus className="w-14 h-14 text-[var(--color-secondary-500)] -rotate-3" />
+            <div className="absolute -bottom-2 -right-2 bg-[var(--color-secondary-500)] rounded-full p-2 border-4 border-[var(--color-secondary-200)] -rotate-3">
+              <Check className="w-6 h-6 text-white" strokeWidth={3} />
+            </div>
+          </div>
+          <h2 className="text-white text-2xl font-serif italic tracking-wide drop-shadow-md">
+            ¡Usuario Creado!
+          </h2>
+        </div>
+      )}
+
+      {/* --- CONTENEDOR INTERNO --- */}
+      <div className="w-full relative">
+        
+        {/* HEADER */}
+        <div className="flex items-center gap-6 mb-10">
+          
+          <div className="relative">
+            <div className={`h-24 w-24 rounded-[1.75rem] rotate-3 bg-[var(--color-secondary-500)] flex items-center justify-center text-white shadow-lg overflow-hidden [&_.border-dashed]:!border-transparent [&_.text-blue-500]:!hidden ${formData.userImage?.length > 0 ? "[&>div>div:last-child]:!hidden" : ""}`}>
+              
+              {(!formData.userImage || formData.userImage.length === 0) && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 -rotate-3">
+                  <User className="w-8 h-8 text-white/80" />
+                  <span className="text-[10px] font-bold mt-1 text-white/80">Subir Foto</span>
+                </div>
+              )}
+              
+              <div className="absolute inset-0 z-0 flex items-center justify-center -rotate-3 scale-[1.35]">
+                <FileInput
+                  value={formData.userImage}
+                  onChange={(files) => setFormData((prev) => ({ ...prev, userImage: files }))}
+                  multiple={false}
+                  accept="image/jpeg, image/jpg, image/png, image/webp"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h1 className="text-3xl font-extrabold text-[var(--color-text-primary)] mb-1">
+              Nuevo Usuario
+            </h1>
+            <p className="text-sm font-medium text-[var(--color-text-muted)]">
+              Registra los datos para el empleado o admin
+            </p>
+          </div>
+          
+          <div className="flex-1" />
+          
+          <button 
+            type="button" 
+            onClick={() => navigate(-1)}
+            className="hidden sm:flex items-center gap-2 rounded-2xl border-2 border-[var(--color-text-primary)] text-[var(--color-text-primary)] px-5 py-2.5 text-sm font-bold hover:bg-[var(--color-text-primary)] hover:text-[var(--color-background)] transition-all"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Regresar
+          </button>
+        </div>
+
+        {/* DIVISOR ONDULADO */}
+        <svg viewBox="0 0 400 12" preserveAspectRatio="none" className="w-full h-3 text-[var(--color-secondary-200)] mb-10">
+          <path d="M0 6 Q 10 0, 20 6 T 40 6 T 60 6 T 80 6 T 100 6 T 120 6 T 140 6 T 160 6 T 180 6 T 200 6 T 220 6 T 240 6 T 260 6 T 280 6 T 300 6 T 320 6 T 340 6 T 360 6 T 380 6 T 400 6" fill="none" stroke="currentColor" strokeWidth="3" />
+        </svg>
+
+        {/* FORMULARIO Y COLUMNAS */}
+        <form onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-12 gap-y-8">
+            
+            {/* Columna 1: PERSONALES */}
+            <div className="space-y-4 [&>div]:!w-full">
+              <h3 className="flex items-center gap-3 text-[var(--color-text-primary)] font-extrabold mb-6 text-lg tracking-wider">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/40 backdrop-blur-md border border-white/60 text-[var(--color-text-primary)] text-base shadow-sm">1</span>
+                PERSONALES
+              </h3>
+              <Input variant="primary" size="md" label="Nombres" htmlFor="userName" name="userName" value={formData.userName} onChange={handleChange} error={errors.userName} placeholder="Ej: Juan" />
+              <Input variant="primary" size="md" label="Apellidos" htmlFor="userLastName" name="userLastName" value={formData.userLastName} onChange={handleChange} error={errors.userLastName} placeholder="Ej: Pérez" />
+              <Select label="Tipo de Documento" htmlFor="userDocumentTypes" name="userDocumentTypes" value={formData.userDocumentTypes} onChange={handleChange} error={errors.userDocumentTypes} options={documentTypes} />
+              <Input variant="primary" size="md" label="Número de Documento" htmlFor="userDocumentNumber" name="userDocumentNumber" value={formData.userDocumentNumber} onChange={handleChange} error={errors.userDocumentNumber} placeholder="Ingresa el documento" />
+              <Input variant="primary" size="md" label="Correo Electrónico" htmlFor="userEmail" name="userEmail" type="email" value={formData.userEmail} onChange={handleChange} error={errors.userEmail} placeholder="correo@ejemplo.com" />
+            </div>
+
+            {/* Columna 2: EMPRESARIALES */}
+            <div className="space-y-4 [&>div]:!w-full">
+              <h3 className="flex items-center gap-3 text-[var(--color-text-primary)] font-extrabold mb-6 text-lg tracking-wider">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/40 backdrop-blur-md border border-white/60 text-[var(--color-text-primary)] text-base shadow-sm">2</span>
+                EMPRESARIALES
+              </h3>
+              <Input variant="primary" size="md" label="Correo Empresarial" htmlFor="businessEmail" name="businessEmail" type="email" value={formData.businessEmail} onChange={handleChange} error={errors.businessEmail} placeholder="correo@empresa.com" />
+              <Input variant="primary" size="md" label="Número Telefónico" htmlFor="userPhone" name="userPhone" value={formData.userPhone} onChange={handleChange} error={errors.userPhone} placeholder="Ej: 3001234567" />
+              <Input variant="primary" size="md" label="Fecha Inicio Laboral" htmlFor="startDate" name="startDate" type="date" value={formData.startDate} onChange={handleChange} error={errors.startDate} />
+              <Input variant="primary" size="md" label="Fecha Fin Laboral" htmlFor="endDate" name="endDate" type="date" value={formData.endDate} onChange={handleChange} error={errors.endDate} />
+              <Input variant="primary" size="md" label="Dirección" htmlFor="address" name="address" value={formData.address} onChange={handleChange} error={errors.address} placeholder="Dirección de residencia" />
+            </div>
+
+            {/* Columna 3: SENSIBLES */}
+            <div className="space-y-4 [&>div]:!w-full">
+              <h3 className="flex items-center gap-3 text-[var(--color-text-primary)] font-extrabold mb-6 text-lg tracking-wider">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/40 backdrop-blur-md border border-white/60 text-[var(--color-text-primary)] text-base shadow-sm">3</span>
+                SENSIBLES
+              </h3>
+              <Select label="Estado" htmlFor="isActive" name="isActive" value={formData.isActive} onChange={handleChange} error={errors.isActive} options={[{ label: "Activo", value: "true" }, { label: "Inactivo", value: "false" }]} />
+              <Select label="Tipo de Usuario" htmlFor="role" name="role" value={formData.role} onChange={handleChange} error={errors.role} options={[{ label: "Administrador", value: "admin" }, { label: "Empleado", value: "employee" }]} />
+              <Input variant="primary" size="md" label="Contraseña" htmlFor="userPassword" name="userPassword" type="password" value={formData.userPassword} onChange={handleChange} error={errors.userPassword} placeholder="Mínimo 8 caracteres" />
+            </div>
+
+          </div>
+
+          {/* FOOTER */}
+          <div className="flex justify-end mt-12 border-t-2 border-[var(--color-border-strong)] pt-8">
+            <Button 
+              type="submit" 
+              variant="primary"
+              size="md"
+              disabled={isSubmitting}
+              className="rounded-full bg-[var(--color-text-primary)] !text-[var(--color-background)] px-10 py-3.5 text-sm font-bold shadow-lg hover:opacity-80 active:scale-95 transition-all !border-none disabled:opacity-50 disabled:active:scale-100"
+            >
+              {isSubmitting ? "GUARDANDO..." : "GUARDAR USUARIO"}
+            </Button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  );
+}
