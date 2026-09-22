@@ -1,20 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input, Button } from "@/shared";
-import restaurante from "@/assets/images/Img-Restaurante.jpeg";
-import logo from "@/assets/images/Img-Login.jpeg";
-import title from "@/assets/images/Img-Titulo.png";
-import { z } from "zod";
-
-const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, "El correo es obligatorio"),
-
-  password: z
-    .string()
-    .min(1, "La contraseña es obligatoria"),
-});
+import restaurante from "../../../assets/images/Img-Restaurante.jpeg";
+import logo from "../../../assets/images/Img-Login.jpeg";
+import title from "../../../assets/images/Img-Titulo.png";
+import { loginSchema } from "../schemas/LoginSchema";
 
 function Login() {
   const navigate = useNavigate();
@@ -52,10 +42,10 @@ function Login() {
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center blur-md scale-110"
-        style={{ backgroundImage: `url(${restaurante})` }}
+        style={{ backgroundImage:   `url(${restaurante})`}}
       ></div>
 
-      <div className="relative z-10 w-[900px] h-[520px] bg-background rounded-4xl shadow-2xl flex">
+      <div className="relative z-10 w-[1000px] h-[600px] bg-white rounded-4xl shadow-2xl flex overflow-hidden">
 
         <div className="w-1/2">
           <img
@@ -67,7 +57,7 @@ function Login() {
 
         <form
           onSubmit={handleLogin}
-          className="w-1/2 flex flex-col justify-center px-12 "
+          className="w-1/2 flex flex-col justify-center items-center px-14"
         >
           <img
             src={title}
@@ -75,7 +65,7 @@ function Login() {
             className="w-48 mx-auto mb-6"
           />
 
-          <h1 className="text-main font-heading text-text-primary text-center mb-6">
+          <h1 className="text-main font-heading text-[var(--text-primary)] text-center mb-6">
             Bienvenido
           </h1>
 
@@ -90,7 +80,7 @@ function Login() {
             error={errors.email}
           />
 
-          <div className="mt-5">
+          <div className="mt-2">
             <Input
               htmlFor="password"
               name="password"
@@ -103,16 +93,23 @@ function Login() {
             />
           </div>
 
-          <Button
-            className="mt-6 p-4"
-            variant="primary"
-            type="submit"
-            size="md"
-          >
-            Iniciar Sesión
-          </Button>
+          <div className="w-full mt-8">
+            <Button
+              variant="primary"
+              type="submit"
+              size="md"
+              style={{
+                backgroundColor: "var(--semantic-brand)",
+                color: "var(--text-inverse)",
+                borderRadius: "7px",
+                width: "100%",
+              }}
+            >
+              Iniciar Sesión
+            </Button>
+          </div>
 
-          <p className="text-body text-text-primary text-center mt-6">
+          <p className="text-body text-[var(--text-primary)] text-center mt-6">
             ¿Aún no tienes una cuenta?{" "}
             <span className="text-medium font-semibold cursor-pointer text-brand"
             onClick={() => navigate("/register")}>
@@ -122,7 +119,7 @@ function Login() {
 
           <div className="text-center mt-6 mb-6">
             <p className="text-medium font-semibold cursor-pointer text-brand"
-            onClick={() => navigate("/forgot-password")}>
+            onClick={() => navigate("/forgotPassword")}>
               
               ¿Olvidaste tu contraseña?
             </p>

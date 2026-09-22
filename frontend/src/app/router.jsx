@@ -2,7 +2,7 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";   
 import { AuthLayout, DashboardLayout, } from "@/shared";
 import { UserListPage, UserRegisterForm, ViewUser} from "@/features/users";
-import  Login  from "@/features/auth/Login";
+import  Login  from "@/features/auth/components/Login";
 import HomePage from "@/features/home/page/HomePage";
 import { InventoryCreateForm } from "../features/inventory";
 import { ProviderRegisterForm } from "../features/provider";

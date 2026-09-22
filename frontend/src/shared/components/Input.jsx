@@ -57,7 +57,7 @@ export default function Input({
                             ? "-mb-0"
                             : "-mb-1"
                     }
-                    ${error ? "text-red-800" : "text-text-primary"}
+                    ${error ? "text-red-800" : "text-[color:var(--text-primary)]"}
                 `}
             >
                 

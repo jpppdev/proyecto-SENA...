@@ -124,8 +124,8 @@ export default function Navbar(){
           </DropdownItem>
 
           <DropdownItem>
-            <Link to="/dashboard/orderList" className="block w-full">
-              cerrar sesión
+            <Link to="/login" className="block w-full">
+              Cerrar sesión
             </Link>
           </DropdownItem>
           
