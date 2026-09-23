@@ -3,7 +3,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AuthLayout, DashboardLayout, } from "@/shared";
 import { UserListPage, UserRegisterForm, ViewUser} from "@/features/users";
 import  Login  from "@/features/auth/components/Login";
-import HomePage from "@/features/home/page/HomePage";
+import DishesPage from "@/features/products/pages/DishesPage";
 import { InventoryCreateForm } from "../features/inventory";
 import { ProviderRegisterForm } from "../features/provider";
 
@@ -44,7 +44,7 @@ const  router = createBrowserRouter([
         element : <DashboardLayout/>,
         children: [
             {index: true},
-            { path: "Home", element: <HomePage />},
+            { path: "Dishes", element: <DishesPage />},
             
             // --- USUARIOS ---
             { path: "userList", element: <UserListPage />},

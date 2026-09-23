@@ -1,7 +1,7 @@
 import Card from "@/shared/components/Card";
 import { products } from "@/features/products";
 
-export default function HomePage() {
+export default function DishesPage() {
   return (
     <div className="mx-auto mt-4 max-w-7x1">
       {/* Hero */}
