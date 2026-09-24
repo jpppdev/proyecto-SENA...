@@ -1,33 +1,71 @@
-import Card from "@/shared/components/Card";
-import { products } from "@/features/products";
+import imghome from "@/assets/images/Img-Home.png";
+import fondoHome from "@/assets/images/Img-Restaurante.jpeg";
+import { Button } from "@/shared";
+import { useNavigate } from "react-router-dom";
 
-export default function HomePage() {
+
+  
+
+  
+export default function Home() {
+    const navigate = useNavigate();
   return (
-    <div className="mx-auto mt-4 max-w-7x1">
-      {/* Hero */}
-      {/* Carrusel */ }
-      {/* Titulo */}
-      <h2 className="text-h2 place-self-center mb-12">
-          Productos
-      </h2>
-        {/* Cards */}
-      <div 
-        className="
-        grid
-        gap-4
-        mx-6
-        sm:grid-cols-2
-        sm:mx-12
-        lg:grid-cols-3
-        xl:grid-cols-4
-        justify-items-center
-        ">
+    <div
+      className="min-h-[calc(100vh-64px)] bg-cover bg-center flex items-center justify-center px-8"
+      style={{
+        backgroundImage: `url(${fondoHome})`,
+      }}
+    >
+      {/* TARJETA PRINCIPAL */}
+      <div className="relative w-full max-w-6xl h-[520px] rounded-3xl overflow-hidden bg-black/40 backdrop-blur-md shadow-2xl">
 
-        {products.map((product) => (
-          <Card key={product.id} product={product} />
-        ))}
+        {/* CONTENIDO */}
+        <div className="relative z-10 flex items-center h-full px-16">
+
+          {/* TEXTO */}
+          <div className="w-1/2">
+
+            <h2 className="text-main font-bold text-white mb-4">
+              Plato De La Casa
+            </h2>
+
+            <h1 className="text-title font-bold text-white">
+              SALMON
+            </h1>
+
+            <h3 className="text-title font-bold text-white mt-2">
+              Rebosado
+            </h3>
+
+            <div className="flex items-center gap-8 mt-10">
+
+              <Button
+              variant="primary"
+              onClick={() => navigate("/create-order")}
+                
+              >
+                ORDENAR
+              </Button>
+
+              <span className="text-subtitle font-bold text-white">
+                $ 50.000
+              </span>
+
+            </div>
+
+          </div>
+
+          {/* IMAGEN DEL PLATO */}
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 w-[480px]">
+            <img
+              src={imghome}
+              alt="Salmón rebosado"
+              className="w-full h-auto object-contain"
+            />
+          </div>
 
         </div>
+      </div>
     </div>
-  )
+  );
 }
