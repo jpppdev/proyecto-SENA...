@@ -3,6 +3,9 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AuthLayout, DashboardLayout, } from "@/shared";
 import { UserListPage, UserRegisterForm, ViewUser} from "@/features/users";
 import  Login  from "@/features/auth/components/Login";
+import  ForgotPassword  from "@/features/auth/components/ForgotPassword";
+import  ResetPasswordToken  from "@/features/auth/components/ResetPasswordToken";
+import  NewPassword  from "@/features/auth/components/NewPassword";
 import DishesPage from "@/features/products/pages/DishesPage";
 import { InventoryCreateForm } from "../features/inventory";
 import { ProviderRegisterForm } from "../features/provider";
@@ -27,6 +30,21 @@ const  router = createBrowserRouter([
     {
         path: "/login",
         element: <Login />,
+    },
+    
+    {
+        path: "/forgotPassword",
+        element: <ForgotPassword />,
+    },
+
+    {
+        path: "/resetPasswordToken",
+        element: <ResetPasswordToken />,
+    },
+
+    {
+        path: "/newPassword",
+        element: <NewPassword />,
     },
 
     {

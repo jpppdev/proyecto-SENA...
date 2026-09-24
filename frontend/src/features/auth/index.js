@@ -1,2 +1,4 @@
 export { Login } from "./components/Login";
-export { LoginSchema } from "./data/LoginSchema";
+export { ForgotPassword } from "./components/ForgotPassword";
+export { ResetPasswordToken } from "./components/ResetPasswordToken";
+export { NewPassword } from "./components/NewPassword";
