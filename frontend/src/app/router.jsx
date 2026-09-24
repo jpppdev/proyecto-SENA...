@@ -18,6 +18,7 @@ import { ViewInventory } from "@/features/inventory";
 import { ViewSuppliers } from "@/features/provider";
 import { ProviderListPage } from "@/features/provider";
 import { MenuCreateForm, ViewMenu, MenuListPage } from "@/features/menu";
+import { HomePage } from "../features/home";
 
 const  router = createBrowserRouter([
     {
@@ -53,6 +54,7 @@ const  router = createBrowserRouter([
         children:[
             {
                 index: true,
+                element: <HomePage/>
             },
         ],
     },
@@ -62,7 +64,7 @@ const  router = createBrowserRouter([
         element : <DashboardLayout/>,
         children: [
             {index: true},
-            { path: "Dishes", element: <DishesPage />},
+            { path: "home", element: <HomePage />},
             
             // --- USUARIOS ---
             { path: "userList", element: <UserListPage />},
