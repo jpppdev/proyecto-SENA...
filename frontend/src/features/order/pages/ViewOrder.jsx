@@ -1,6 +1,16 @@
 import { Link, useParams } from "react-router-dom";
+import {
+  Utensils,
+  User,
+  Hash,
+  ClipboardList,
+  MessageSquare,
+  ToggleRight,
+  Package,
+} from "lucide-react";
+
 import { Button } from "@/shared";
-import { orders } from "../data/order"; 
+import { orders } from "../data/order";
 
 export default function OrderViewPage() {
   const { id } = useParams();
@@ -8,94 +18,434 @@ export default function OrderViewPage() {
   const order = orders.find((item) => String(item.id) === String(id));
 
   if (!order) {
-    return <p>Orden no encontrada</p>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[color:var(--color-background)]">
+        <p className="text-lg font-semibold text-[color:var(--color-text-primary)]">
+          Orden no encontrada
+        </p>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-[url('/src/assets/images/imagen-fondo.png')] bg-cover bg-center flex items-center justify-center">
-      <div className="max-w-3xl mx-auto w-full">
-        <h1 className="text-[length:var(--text-main)] font-semibold mb-6 text-[color:var(--color-text-primary)]">
-          Visualizar Orden
-        </h1>
+    <div className="min-h-screen bg-[url('/src/assets/images/imagen-fondo.png')] bg-cover bg-center p-6">
 
-        <div className="bg-white rounded-2xl shadow-md p-8">
-          {/* Información general */}
-          <h2 className="text-xl font-semibold mb-6">
-            Información general
-          </h2>
+      <div className="max-w-6xl mx-auto">
 
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <p className="text-gray-500">Número de orden</p>
-              <p>{order.id}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Cliente</p>
-              <p>{order.customerName}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Fecha</p>
-              <p>{order.date}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Hora</p>
-              <p>{order.time}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Mesa</p>
-              <p>{order.table}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Total</p>
-              <p>${order.total}</p>
-            </div>
+        {/* HEADER */}
+        <div className="flex justify-between items-center mb-6">
+
+          <div>
+            <h1 className="text-3xl font-bold text-[color:var(--color-text-primary)]">
+              Visualizar orden
+            </h1>
           </div>
 
-          {/* Platillos */}
-          <div className="mt-8">
-            <h2 className="text-xl font-semibold mb-6">Platillos</h2>
-            <div className="space-y-4">
-              {order.dishes.map((dish, index) => (
-                <div key={index} className="border rounded-lg p-4">
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <p className="text-gray-500">Platillo</p>
-                      <p>{dish.name}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">Cantidad</p>
-                      <p>{dish.quantity}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">Precio</p>
-                      <p>${dish.price}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <Link to="/dashboard/orderList">
+            <Button>
+              ← Volver a la lista
+            </Button>
+          </Link>
 
-          {/* Estado */}
-          <div className="mt-8">
-            <h2 className="text-xl font-semibold mb-6">Estado</h2>
-            <p>{order.status}</p>
-          </div>
-
-          {/* Observaciones */}
-          <div className="mt-8">
-            <h2 className="text-xl font-semibold mb-6">Observaciones</h2>
-            <p>{order.observations || "Sin observaciones"}</p>
-          </div>
-
-          {/* Volver */}
-          <div className="mt-8">
-            <Link to="/dashboard/orderList">
-              <Button>Volver</Button>
-            </Link>
-          </div>
         </div>
+
+
+        {/* TARJETA PRINCIPAL */}
+        <div className="bg-[color:var(--semantic-brand-light)] rounded-2xl shadow-md p-6 mb-5">
+
+          <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+
+            {/* NÚMERO DE ORDEN */}
+            <div className="flex-1">
+
+              <div className="flex items-center gap-3">
+
+                <div>
+                  <h2 className="text-2xl font-bold text-[color:var(--color-text-secondary)]">
+                    Orden #{order.id}
+                  </h2>
+
+                  <div className="flex items-center gap-2 mt-3">
+
+                    <ClipboardList
+                      size={20}
+                      className="text-[color:var(--semantic-brand)]"
+                    />
+
+                    <span className="text-sm text-[color:var(--color-text-secondary)]">
+                      Información de la orden
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            {/* ESTADO */}
+            <div className="lg:border-l lg:pl-8 min-w-[180px] border-[color:var(--color-border)]">
+
+              <p className="text-sm text-[color:var(--color-text-secondary)] mb-2">
+                Estado
+              </p>
+
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[color:var(--semantic-brand)] text-[color:var(--text-inverse)]">
+
+                <span className="w-2 h-2 rounded-full bg-[color:var(--text-inverse)]"></span>
+
+                {order.status || "Activo"}
+
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* PESTAÑAS */}
+        <div className="bg-[color:var(--semantic-brand-light)] rounded-2xl shadow-md mb-5">
+
+          <div className="flex items-center">
+
+            <div className="px-6 py-4 text-[color:var(--color-text-secondary)] flex items-center gap-2">
+
+              <ClipboardList size={20} />
+
+              Información general
+
+            </div>
+
+            <div className="px-6 py-4 text-[color:var(--color-text-secondary)] flex items-center gap-2">
+
+              <Utensils size={20} />
+
+              Platillos
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* CONTENIDO */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+          {/* INFORMACIÓN GENERAL */}
+          <div className="lg:col-span-2">
+
+            <div className="bg-[color:var(--semantic-brand-light)] rounded-2xl shadow-md p-6">
+
+              <div className="flex items-center gap-3 pb-4 mb-6">
+
+                <ClipboardList
+                  size={20}
+                  className="text-[color:var(--semantic-brand)]"
+                />
+
+                <div>
+
+                  <h2 className="font-bold text-lg text-[color:var(--color-text-secondary)]">
+                    Datos de la orden
+                  </h2>
+
+                  <p className="text-sm text-[color:var(--color-text-secondary)]">
+                    Información general de la orden
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+
+                {/* NÚMERO DE MESA */}
+                <div className="flex gap-3">
+
+                  <Hash
+                    className="text-[color:var(--semantic-brand)] mt-1"
+                    size={20}
+                  />
+
+                  <div>
+
+                    <p className="text-xs text-[color:var(--color-text-secondary)]">
+                      Número de mesa
+                    </p>
+
+                    <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                      {order.table || "No registrado"}
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                {/* MESERO RESPONSABLE */}
+                <div className="flex gap-3">
+
+                  <User
+                    className="text-[color:var(--semantic-brand)] mt-1"
+                    size={20}
+                  />
+
+                  <div>
+
+                    <p className="text-xs text-[color:var(--color-text-secondary)]">
+                      Mesero responsable
+                    </p>
+
+                    <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                      {order.waiter || "No registrado"}
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                {/* ESTADO */}
+                <div className="flex gap-3">
+
+                  <ToggleRight
+                    className="text-[color:var(--semantic-brand)] mt-1"
+                    size={20}
+                  />
+
+                  <div>
+
+                    <p className="text-xs text-[color:var(--color-text-secondary)]">
+                      Estado
+                    </p>
+
+                    <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                      {order.status || "Activo"}
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                {/* OBSERVACIONES */}
+                <div className="flex gap-3">
+
+                  <MessageSquare
+                    className="text-[color:var(--semantic-brand)] mt-1"
+                    size={20}
+                  />
+
+                  <div>
+
+                    <p className="text-xs text-[color:var(--color-text-secondary)]">
+                      Observaciones especiales
+                    </p>
+
+                    <p className="font-medium mt-1 break-all text-[color:var(--color-text-secondary)]">
+                      {order.observations || "Sin observaciones"}
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          {/* RESUMEN */}
+          <div className="space-y-5">
+
+            <div className="bg-[color:var(--semantic-brand-light)] rounded-2xl shadow-md p-6">
+
+              <div className="flex items-center gap-3 mb-5">
+
+                <Utensils
+                  size={20}
+                  className="text-[color:var(--semantic-brand)]"
+                />
+
+                <h2 className="font-bold text-lg text-[color:var(--color-text-secondary)]">
+                  Resumen
+                </h2>
+
+              </div>
+
+              <div className="space-y-4">
+
+                <div>
+
+                  <p className="text-xs text-[color:var(--color-text-secondary)]">
+                    Número de orden
+                  </p>
+
+                  <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                    #{order.id}
+                  </p>
+
+                </div>
+
+
+                <div>
+
+                  <p className="text-xs text-[color:var(--color-text-secondary)]">
+                    Total de platillos
+                  </p>
+
+                  <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                    {order.dishes?.length || 0}
+                  </p>
+
+                </div>
+
+
+                <div>
+
+                  <p className="text-xs text-[color:var(--color-text-secondary)]">
+                    Total de la orden
+                  </p>
+
+                  <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                    ${order.total || "0"}
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* PLATILLOS */}
+        <div className="bg-[color:var(--semantic-brand-light)] rounded-2xl shadow-md p-6 mt-5">
+
+          <div className="flex items-center gap-3 pb-4 mb-6">
+
+            <Utensils
+              size={20}
+              className="text-[color:var(--semantic-brand)]"
+            />
+
+            <div>
+
+              <h2 className="font-bold text-lg text-[color:var(--color-text-secondary)]">
+                Platillos seleccionados
+              </h2>
+
+              <p className="text-sm text-[color:var(--color-text-secondary)]">
+                Platillos incluidos en la orden
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div className="space-y-4">
+
+            {order.dishes.map((dish, index) => (
+
+              <div
+                key={index}
+                className="border border-[color:var(--color-border)] rounded-lg p-4"
+              >
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                  {/* PLATILLO */}
+                  <div className="flex gap-3">
+
+                    <Utensils
+                      className="text-[color:var(--semantic-brand)] mt-1"
+                      size={20}
+                    />
+
+                    <div>
+
+                      <p className="text-xs text-[color:var(--color-text-secondary)]">
+                        Platillo
+                      </p>
+
+                      <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                        {dish.name || "No registrado"}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* CANTIDAD */}
+                  <div className="flex gap-3">
+
+                    <Package
+                      className="text-[color:var(--semantic-brand)] mt-1"
+                      size={20}
+                    />
+
+                    <div>
+
+                      <p className="text-xs text-[color:var(--color-text-secondary)]">
+                        Cantidad
+                      </p>
+
+                      <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                        {dish.quantity || "No registrado"}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* PRECIO */}
+                  <div className="flex gap-3">
+
+                    <ClipboardList
+                      className="text-[color:var(--semantic-brand)] mt-1"
+                      size={20}
+                    />
+
+                    <div>
+
+                      <p className="text-xs text-[color:var(--color-text-secondary)]">
+                        Precio
+                      </p>
+
+                      <p className="font-medium mt-1 text-[color:var(--color-text-secondary)]">
+                        ${dish.price || "0"}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
       </div>
+
     </div>
   );
 }
