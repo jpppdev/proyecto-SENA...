@@ -49,3 +49,26 @@ export function showErrorAlert({
     buttonsStyling: false,
   });
 }
+export function showDeleteAlert({
+  title = "¿Estás seguro?",
+  text = "Esta acción no se puede deshacer",
+  confirmButtonText = "Sí, eliminar",
+  cancelButtonText = "Cancelar",
+} = {}) {
+  return Swal.fire({
+    icon: "warning",
+    title,
+    text,
+    showCancelButton: true,
+    confirmButtonText,
+    cancelButtonText,
+    reverseButtons: true,
+    customClass: {
+      popup: "rounded-2xl",
+      title: "text-red-600 font-bold",
+      confirmButton: "bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-lg ml-2 transition-colors",
+      cancelButton: "bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-4 py-2 rounded-lg transition-colors",
+    },
+    buttonsStyling: false,
+  });
+}
