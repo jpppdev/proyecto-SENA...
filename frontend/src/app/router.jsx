@@ -74,10 +74,11 @@ const  router = createBrowserRouter([
             { path: "home", element: <HomePage />},
             
             // --- USUARIOS ---
-            { path: "userList", element: <UserListPage />},
-            { path: "userCreate", element: <UserRegisterForm />},
-            { path: "userView/:id", element: <ViewUser /> }, 
-            { path: "users/:id/edit", element: <UserEditForm /> }, // Reemplazar con UserEditForm cuando exista
+{ path: "userList", element: <UserListPage />},
+{ path: "userCreate", element: <UserRegisterForm />},
+{ path: "userView/:id", element: <ViewUser /> }, 
+{ path: "users/:id/edit", element: <UserEditForm /> },
+{ path: "userEdit/:id", element: <UserEditForm /> }, 
 
             // --- ÓRDENES ---
             { path: "orderList", element: <OrderListPage /> },
