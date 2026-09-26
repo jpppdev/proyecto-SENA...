@@ -93,17 +93,11 @@ function Login() {
             />
           </div>
 
-          <div className="w-full mt-8">
+          <div className="w-full mt-8 flex justify-center">
             <Button
               variant="primary"
               type="submit"
               size="md"
-              style={{
-                backgroundColor: "var(--semantic-brand)",
-                color: "var(--text-inverse)",
-                borderRadius: "7px",
-                width: "100%",
-              }}
             >
               Iniciar Sesión
             </Button>
