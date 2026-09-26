@@ -16,6 +16,7 @@ import { getDocumentTypes } from "@/services/selectService";
 import { useNavigate} from "react-router-dom";
 import {userSchema} from "../schemas/userSchema";
 import { UserPlus, ArrowLeft, Check, User } from "lucide-react";
+import { showCreateUserErrorAlert } from "@/shared/services/alertService";
 
 
 
@@ -89,25 +90,45 @@ export default function UserRegisterForm (){
         //Verificar en consola si el esquema está funcionado correctamente 
         // console.log(result);
 
+              if (!result.success) {
+          const fieldErrors = {};
+
+          result.error.issues.forEach((issue) => {
+              fieldErrors[issue.path[0]] = issue.message;
+          });
+
+          setErrors(fieldErrors);
+
+          // Alerta de SweetAlert2
+          showCreateUserErrorAlert({
+              icon: "error",
+              title: "Error al crear Usuario",
+              text: "No se pudo crear el usuario. Verifica la información ingresada e inténtalo nuevamente.",
+              confirmButtonText: "Entendido",
+          });
+
+          return;
+      }
+
         //Si la validacion falla
-        if(!result.success){
-            //Objeto donde almacenaremos los errores por campo
-            const fieldErrors = {};
+        // if(!result.success){
+        //     //Objeto donde almacenaremos los errores por campo
+        //     const fieldErrors = {};
 
-            // Recorremos cada error generado por Zod
-            result.error.issues.forEach((issue) => {
-                //issue.path[0] corresponde al nombre del campo
-                // issue.message contiene el mensaje de error definido en el schema
-                fieldErrors[issue.path[0]] = issue.message;
-            });
+        //     // Recorremos cada error generado por Zod
+        //     result.error.issues.forEach((issue) => {
+        //         //issue.path[0] corresponde al nombre del campo
+        //         // issue.message contiene el mensaje de error definido en el schema
+        //         fieldErrors[issue.path[0]] = issue.message;
+        //     });
 
-            // Actualizamos el estado de errores para mostrarlos en el UI 
-            setErrors(fieldErrors);
+        //     // Actualizamos el estado de errores para mostrarlos en el UI 
+        //     setErrors(fieldErrors);
 
-            // Cortamos la ejecución: NO se envia nada al backend
+        //     // Cortamos la ejecución: NO se envia nada al backend
 
-            return;
-        }
+        //     return;
+        // }
         // Si la validacion pasa, limpiamos errores previos
         setErrors({});
 
@@ -115,30 +136,28 @@ export default function UserRegisterForm (){
         setIsSubmitting(true);
 
         try {
-            //llamamos al servivio frontend que soncume la API 
-            //result.data contiene los datos ya validamos por Zod
-            // const responde = await createUser(result.data); linea comentada es un servicio 
+      // Prueba temporal para comprobar la alerta de error
+      // Código que ya tenía tu proyecto
 
-            //Log informativo para desarrolllo
-            // console("Usuario Creado:", responde); igual
+      alert("Usuario creado correctamente");
 
-            //Feedback basico al usuario 
-            alert("Usuario creado correctamente");
+      navigate(-1);
 
-            //Navegamos a la vista anterior
-            // navigate (-1) equivale a "volver atras"
-            navigate(-1);
         } catch (error){
-            //Caoturamos errores de red o errores lanzados por el service
-            console.error("Error:" , error.message);
+              //Capturamos errores de red o errores lanzados por el service
+            console.error("Error:", error.message);
 
-            //Mstramos el mensaje de error al usuario 
-            alert(error.message);
+              //Mostramos la alerta de error al usuario
+            showCreateUserErrorAlert({
+                title: "Error al crear usuario",
+                text: "No se pudo crear el usuario. Inténtalo nuevamente.",
+                timer: 3000,
+              });
         } finally {
-            //Pase lo que pase, desactivamos el esrado de envio 
-            // setIsSubmitting(false);
-        }
-    };
+              //Pase lo que pase, desactivamos el esrado de envio 
+            setIsSubmitting(false);
+          }
+      };
 
     //========================================
     //          Handle NameChange
